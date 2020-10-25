@@ -35,5 +35,4 @@ def transcribeAudio(filename):
     with sr.AudioFile(filename) as src:
         audio = r.record(src)
         print(r.recognize_google(audio))
-
-    
+ 
