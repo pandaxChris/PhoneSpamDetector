@@ -2,6 +2,12 @@
 
 """
 10/24/20 - Version 1.0 Chris - Added a file converter, voice transcribe through pydub
+
+Dependencies(easy install with pip):
+ffmpeg
+libavcodec-extra-53
+portaudio19-dev
+
 """
 import speech_recognition as sr
 from pydub import AudioSegment

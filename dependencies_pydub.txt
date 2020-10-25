@@ -1,0 +1,3 @@
+pip install ffmpeg
+pip install libavcodec-extra-53
+sudo apt-get install portaudio19-dev
