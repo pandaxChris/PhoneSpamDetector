@@ -11,12 +11,27 @@ import my_transcribe as t
 #no error checking was added to subject to vulernabilities and exceptions
 
 def convertAndTranscribe():
-    method = sys.argv[1]
+    createdFiles = []
     for f in sys.argv:
-        if( f is method ):
+        print(f)
+        if( f.find(".py") > 0): #ignore method + script name
             continue
         else:
-            myFile = t.convertM4AtoWAV( f ) 
+            myFile = f
+            if(f.find(".m4a") > -1):
+                print("Converting " + f + " . . .")
+                myFile = t.convertM4AtoWAV( f )
+                createdFiles.append(myFile)
+            print(" ==== Finished converting " + f + " to .wav ====")
             if(myFile is not None):
-                t.transcribeAudio(myFile)
+                print("Transcribing " + f + " . . .")
+                t.transcribeAudio(myFile) 
+                print(" ==== Finished transcribing. ====")
 
+    cleanupFiles(createdFiles)
+
+def cleanupFiles(arr):
+    for i in arr:
+        os.remove(i)
+
+convertAndTranscribe()
