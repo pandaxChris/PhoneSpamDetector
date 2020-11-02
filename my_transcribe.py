@@ -11,10 +11,12 @@ import subprocess
 #File converter .M4A to .WAV (Apple Voicemails)
 def convertM4AtoWAV(filename):
     if(os.path.exists(filename)):
-        removedExtension = filename[ : filename.index(".m4a")]
-        newFileName = removedExtension + ".wav"
+        newFileName = filename
+        if(filename.find(".wav") ==  -1 ):
+            removedExtension = filename[ : filename.index(".")]
+            newFileName = removedExtension + ".wav"
         try:
-           subprocess.call(['ffmpeg', '-i', filename,  newFileName])
+           subprocess.call(['ffmpeg', '-i', filename,  newFileName, "-loglevel", "quiet"])
            return newFileName
         except:
             print("Failed to convert file")
