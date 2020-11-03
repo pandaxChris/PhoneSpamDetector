@@ -31,6 +31,8 @@ def transcribeAudio(filename):
     r = sr.Recognizer()
     with sr.AudioFile(filename) as src:
         audio = r.record(src)
+        print(r.recognize_google(audio))
+ 
         #print(r.recognize_google(audio))
         data = r.recognize_google(audio) 
         removedExtension = filename[ : filename.index(".wav")]
