@@ -1,3 +1,4 @@
-pip install ffmpeg
-pip install libavcodec-extra-53
-sudo apt-get install portaudio19-dev
+FFMPEG - sudo apt-get install ffmpeg
+PyDub - pip3 install pydub
+SpeeechRegonition - pip3 install SpeechRecognition
+PortAudio - sudo apt-get install portaudio19-dev
