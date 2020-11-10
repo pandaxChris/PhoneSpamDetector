@@ -1,0 +1,16 @@
+#Ignore Voicemails folder
+.Voicemails
+*.txt
+*.csv
+*.m4a
+*.wav
+*.mp3
+
+
+#Ignore MAC system files
+.DS_store
+
+#Ignore files related to API keys
+.env
+
+*.pyc

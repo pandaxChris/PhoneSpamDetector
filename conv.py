@@ -3,6 +3,7 @@
 import sys
 import os
 import subprocess
+import csv
 import speech_recognition as sr
 from pydub import AudioSegment
 import my_transcribe as t
@@ -13,8 +14,7 @@ import my_transcribe as t
 def convertAndTranscribe():
     createdFiles = []
     for f in sys.argv:
-        print(f)
-        if( f.find(".py") > 0): #ignore method + script name
+        if( f.find(".py") > -1): #ignore method + script name
             continue
         else:
             myFile = f
@@ -34,4 +34,7 @@ def cleanupFiles(arr):
     for i in arr:
         os.remove(i)
 
+
+
 convertAndTranscribe()
+
