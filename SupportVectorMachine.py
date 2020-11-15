@@ -22,19 +22,23 @@ class SupportVectorMachine:
     classifier = svm.SVC()
 
     # The member function to train/learn the algorithm model
-    def train_model(training_dataframe):
+    def train_model(self, training_dataframe):
         classifier.fit(training_dataframe)
 
     # TO-DO: Should print out the percentage of precision on the testing data set; waiting for actual data frame (cannot hard-code here)
-    def test_model(testing_dataframe):
+    def test_model(self, testing_dataframe):
         classifier.predict(testing_dataframe)
 
     # Here this function should predict the spam text message: classify it to spam or non-spam
-    def predict_spam(spam_text_file):
-        classifier.predict(spam_text_file)
+    def predict_spam(self, spam_dataframe):
+        classifier.predict(spam_dataframe)
 
     # Here is the constructor to initialize every object
     def __init__(self):
+        data_frame = pd.read_csv('voicemails.csv', usecols= ['voice_text_tfidf', 'directory', 'label'])
+        training_dataframe = data_frame.iloc[0:5,['voice_text_tfidf', 'label']]
+        testing_dataframe = data_frame.iloc[5:10,['voice_text_tfidf', 'label']]
+        spam_dataframe = data_frame.iloc[10:14,['voice_text_tfidf', 'label']]
         self.train_model(training_dataframe)
         self.test_model(testing_dataframe)
-        self.predict_spam(spam_text_file)
+        self.predict_spam(spam_dataframe)
