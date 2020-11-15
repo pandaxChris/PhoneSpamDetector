@@ -26,9 +26,10 @@ class NaturalLanguageProcessing:
         phone_call_file = text_files[0]
         fid = open(phone_call_file)
         phone_call_df = pd.read_fwf(phone_call_file)  # Pandas Data frame function: read fixed-width text file
+        voicemail_df = pd.read_csv('voicemails.csv', usecols= ['voice_text', 'directory', 'label'])
         # Now use CountVectorizer to create vactor space model for each phone call text:
         vect = CountVectorizer(stop_words = 'english',lowercase = True, max_features = 1000)
-        counter = vect.fit_transform(phone_call_df[0])
+        counter = vect.fit_transform(voicemail_df["voice_text"])
         transf  = TfidfTransformer(norm = 'l2', sublinear_tf = True)
         tf_idf = transf.fit_transform(counter)  # matrix representation of each phone call text as a tf-idf vector
 
