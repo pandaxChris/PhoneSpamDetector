@@ -25,7 +25,7 @@ class SupportVectorMachine:
     def train_model(self, training_dataframe):
         classifier.fit(training_dataframe)
 
-    # TO-DO: Should print out the percentage of precision on the testing data set; waiting for actual data frame (cannot hard-code here)
+    # This is to test model accuracy
     def test_model(self, testing_dataframe):
         classifier.predict(testing_dataframe)
 
