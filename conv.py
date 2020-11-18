@@ -36,5 +36,5 @@ def cleanupFiles(arr):
 
 
 
-convertAndTranscribe()
+#convertAndTranscribe()
 

@@ -24,7 +24,10 @@ def transcribeDirectory(myDir='.'):
 	toConvert = ['./conv.py']
 
 	for item in voicemails:
-		if(item.lower().find('.m4a') > -1 or item.lower().find('.wav') > -1):
+		if(item[item.rfind('.'):] == '.mp3'):
+			continue
+		file_no_ext= myDir + item[:item.rfind('.')]
+		if(item.lower().find('.m4a') > -1 or item.lower().find('.wav') > -1 and not os.path.exists(file_no_ext+'.txt')):
 			toConvert.append('./Voicemails/' + item)
 
 	print("Transcribing directory: " + myDir)
@@ -51,7 +54,7 @@ def getCSVofData(myDir='.', outputFile = 'default.csv'):
 	print(myData)
 	with open(outputFile, 'w') as csvfile:
 		myWriter = csv.writer(csvfile)
-
+		myWriter.writerow(['Message', 'Directory', 'Status'])
 		for item in myData:
 			f = open(item, 'r')
 			status = ""
@@ -69,5 +72,5 @@ def getCSVofData(myDir='.', outputFile = 'default.csv'):
 
 
 
-transcribeDirectory('./Voicemails')
-getCSVofData('./Voicemails/', 'attempt.csv')
+#transcribeDirectory('./Voicemails/')
+#getCSVofData('./Voicemails/', 'voicemails.csv')

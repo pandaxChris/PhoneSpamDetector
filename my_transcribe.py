@@ -35,7 +35,7 @@ def transcribeAudio(filename):
         audio = r.record(src)
         #print(r.recognize_google(audio))
         data = r.recognize_google(audio)
-        removedExtension = filename[ : filename.rfind(".wav")]
+        removedExtension = filename[ : filename.rfind(".")]
         newFileName =  removedExtension + ".txt"
         f = open(newFileName, 'w')
         f.write(data)
