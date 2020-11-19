@@ -9,16 +9,15 @@
 #												 #
 #	How to run:									 #
 #		./pds.py								 #
-#		Takes no arguments(ignored if supplied)	 #
-#												 #
-#												 #
-#												 #
+#		Takes one argument at most - string or	 #
+#		audio file to test						 #
+#		Only works for .m4a, .wav, and .mp3 for  #
+#		now.									 #
 ##################################################
 
-
 import os, sys
-import conv as con
 import pandas as p
+import subprocess
 import my_transcribe as m
 from sklearn.svm import SVC
 import directorystuff as di 
@@ -28,17 +27,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def pds():
-	if(len(sys.argv[])==3)
-	if(not os.path.isdir('./Voicemails')):
-		print("No voicemails to test. Exiting...")
-		exit(0)
-
 	#check to make sure we have a text file rep of each voicemail file
 	vm_dir = os.listdir('./Voicemails')
 	for item in vm_dir:
 		name_txt = './Voicemails/' + item[:item.rfind('.')] + '.txt'
 		if( not os.path.exists(name_txt)):
-			print("Checking for files...")
+			print(name_txt)
 			print("Missing some files... Converting...")
 			di.transcribeDirectory('./Voicemails/')
 			break
@@ -77,23 +71,30 @@ def pds():
 
 
 	print("Testing accuracy on test data...")
-	print("SVM accuracy: " + str(accuracy_score(svm_pred, y_test) * 100))
+	print("SVM accuracy: " + str(accuracy_score(svm_pred, y_test) * 100) + '%')
 
 
 	if(len(sys.argv) == 2): #Two arguments, the file + the param
 		stringToTest = ""
-		if(sys.argv[1].rfind('.') > -1): #Eval a file
+		extensions = ['.m4a', '.wav', '.mp3']
+		if(sys.argv[1][sys.argv[1].rfind('.'):] in extensions): #Eval a file
 			evalFile = sys.argv[1]
 
-			m.convertM4AtoWAV(evalFile)
-			m.transcribeAudio(evalFile)
-
+			#Make sure it's not a text file
+			if(sys.argv[1].rfind('txt') == -1):
+				subprocess.call(['./conv.py', evalFile])
+			#print(evalFile[:evalFile.rfind('.')] + '.txt')
 			fileToTest = open(evalFile[:evalFile.rfind('.')] + '.txt', 'r')
 			stringToTest = fileToTest.readline()
 			fileToTest.close()
 		else: #Eval a string -- Escape the punctuation
-			
-		result = svm.predict(stringToTest)
+			if(sys.argv[1].rfind('.txt')):
+				stringToTest = open(sys.argv[1],'rb').readLline()
+			else:
+				stringToTest = sys.argv[1]
+
+		t = tfid_vec.transform([stringToTest])
+		result = svm.predict(t)
 		if(result == [1]):
 			print("Suspicious...")
 		else:

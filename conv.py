@@ -18,7 +18,7 @@ def convertAndTranscribe():
             continue
         else:
             myFile = f
-            if(f.find(".m4a") > -1):
+            if(f.find(".m4a") > -1 or f.find('.mp3') > -1):
                 print("Converting " + f + " . . .")
                 myFile = t.convertM4AtoWAV( f )
                 createdFiles.append(myFile)
@@ -36,5 +36,5 @@ def cleanupFiles(arr):
 
 
 
-#convertAndTranscribe()
+convertAndTranscribe()
 

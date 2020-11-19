@@ -13,7 +13,7 @@ import subprocess
 def convertM4AtoWAV(filename):
     if(os.path.exists(filename)):
         newFileName = filename
-        if(filename.find(".wav") ==  -1 ):
+        if(filename.rfind(".wav") ==  -1 ):
             removedExtension = filename[ : filename.rfind(".")]
             newFileName = removedExtension + ".wav"
             print(newFileName)

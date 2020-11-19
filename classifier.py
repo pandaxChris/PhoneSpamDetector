@@ -38,8 +38,8 @@ n = naive_bayes.MultinomialNB()
 n.fit(train_x_tfidf, y_train)
 
 n_pred = n.predict(test_x_tdidf)
-acc = accuracy_score(n_pred, y_test, normalize=False)
-print("Naive Bayes accuracy: " + str(acc * 100))
+acc = accuracy_score(n_pred, y_test, normalize=True)
+print("Naive Bayes accuracy: " + str(acc * 100) + '%')
 #print(accuracy_score(n_pred, y_test) * 100)
 
 ########Below is SVM code#############
@@ -48,9 +48,6 @@ svm = SVC()  #RBF kernel
 svm.fit(train_x_tfidf, y_train)
 
 svm_pred = svm.predict(test_x_tdidf)
-
-if(svm_pred.all()==[1]):
-	print("Spam")
 
 print("SVM accuracy: " + str(accuracy_score(svm_pred, y_test)* 100) + "%")
 
